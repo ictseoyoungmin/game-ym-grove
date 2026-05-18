@@ -1,0 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    command: pnpm dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - pnpm-store:/root/.local/share/pnpm/store
+      - node-modules:/app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+
+  check:
+    build:
+      context: .
+      target: dev
+    command: pnpm agent:check
+    volumes:
+      - .:/app
+      - pnpm-store:/root/.local/share/pnpm/store
+      - node-modules:/app/node_modules
+
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.60.0-noble
+    working_dir: /app
+    command: >
+      sh -lc "corepack enable &&
+      corepack prepare pnpm@9.15.0 --activate &&
+      pnpm install --frozen-lockfile &&
+      pnpm test:e2e"
+    volumes:
+      - .:/app
+      - e2e-pnpm-store:/root/.local/share/pnpm/store
+      - e2e-node-modules:/app/node_modules
+
+volumes:
+  pnpm-store:
+  node-modules:
+  e2e-pnpm-store:
+  e2e-node-modules:

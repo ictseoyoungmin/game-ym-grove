@@ -1,0 +1,114 @@
+[
+  {
+    "id": "core",
+    "name": "Core Ym",
+    "icon": "assets/ym/core-brand.svg",
+    "tags": ["origin", "brand"],
+    "effect": { "spark": 0.1 },
+    "description": "The tiny origin creature at the center of Ym Grove."
+  },
+  {
+    "id": "ai_agents",
+    "name": "AI / Agents Ym",
+    "icon": "assets/ym/ai-agents.svg",
+    "tags": ["intelligence", "connection"],
+    "effect": { "spark": 0.25 },
+    "description": "Boosts automatic Spark through coordinated agency."
+  },
+  {
+    "id": "ml_deep_learning",
+    "name": "ML / Deep Learning Ym",
+    "icon": "assets/ym/ml-deep-learning.svg",
+    "tags": ["intelligence"],
+    "effect": { "spark": 0.2 },
+    "description": "Improves growth efficiency with layered reasoning."
+  },
+  {
+    "id": "jepa_vision",
+    "name": "JEPA / Vision Ym",
+    "icon": "assets/ym/jepa-vision.svg",
+    "tags": ["curiosity", "intelligence"],
+    "effect": { "insight": 0.1 },
+    "description": "Reveals clearer evolution previews through prediction."
+  },
+  {
+    "id": "security",
+    "name": "Security Ym",
+    "icon": "assets/ym/security.svg",
+    "tags": ["stability", "trust"],
+    "effect": { "trust": 0.1 },
+    "description": "Builds Trust and keeps the grove resilient."
+  },
+  {
+    "id": "data_analytics",
+    "name": "Data / Analytics Ym",
+    "icon": "assets/ym/data-analytics.svg",
+    "tags": ["growth", "curiosity"],
+    "effect": { "insight": 0.12 },
+    "description": "Turns growth patterns into Insight."
+  },
+  {
+    "id": "cloud_infra",
+    "name": "Cloud / Infra Ym",
+    "icon": "assets/ym/cloud-infra.svg",
+    "tags": ["connection", "stability"],
+    "effect": { "spark": 0.16 },
+    "description": "Adds steady capacity for a larger grove."
+  },
+  {
+    "id": "gaming_rl",
+    "name": "Gaming / RL Ym",
+    "icon": "assets/ym/gaming-rl.svg",
+    "tags": ["curiosity", "play"],
+    "effect": { "spark": 0.18 },
+    "description": "Creates playful spikes in touch rewards."
+  },
+  {
+    "id": "research",
+    "name": "Research Ym",
+    "icon": "assets/ym/research.svg",
+    "tags": ["curiosity", "discovery"],
+    "effect": { "insight": 0.16 },
+    "description": "Finds rare paths hidden in the grove."
+  },
+  {
+    "id": "education",
+    "name": "Education Ym",
+    "icon": "assets/ym/education.svg",
+    "tags": ["curiosity", "stability"],
+    "effect": { "spark": 0.12 },
+    "description": "Makes each learning step feel lighter."
+  },
+  {
+    "id": "premium_pro",
+    "name": "Premium / Pro Ym",
+    "icon": "assets/ym/premium-pro.svg",
+    "tags": ["balanced", "quality"],
+    "effect": { "spark": 0.22, "insight": 0.05 },
+    "description": "A polished Ym unlocked by balanced growth."
+  },
+  {
+    "id": "sustainability",
+    "name": "Sustainability Ym",
+    "icon": "assets/ym/sustainability.svg",
+    "tags": ["growth", "balance"],
+    "effect": { "spark": 0.2 },
+    "description": "Improves idle rewards through natural balance."
+  },
+  {
+    "id": "api_integrations",
+    "name": "API / Integrations Ym",
+    "icon": "assets/ym/api-integrations.svg",
+    "tags": ["connection", "expansion"],
+    "effect": { "spark": 0.15, "insight": 0.05 },
+    "description": "Links Ym effects into a stronger network."
+  },
+  {
+    "id": "tools_utilities",
+    "name": "Tools / Utilities Ym",
+    "icon": "assets/ym/tools-utilities.svg",
+    "tags": ["stability", "connection"],
+    "effect": { "spark": 0.14, "trust": 0.05 },
+    "description": "Keeps repeated grove work simple and efficient."
+  }
+]

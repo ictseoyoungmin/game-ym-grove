@@ -1,0 +1,112 @@
+[
+  {
+    "id": "rule_ai_agents",
+    "target": "ai_agents",
+    "priority": 100,
+    "cost": { "spark": 300 },
+    "requiredStats": { "intelligence": 4, "connection": 4 },
+    "hint": "Intelligence and Connection are both pulling upward."
+  },
+  {
+    "id": "rule_ml_deep_learning",
+    "target": "ml_deep_learning",
+    "priority": 90,
+    "cost": { "spark": 300 },
+    "requiredStats": { "intelligence": 6 },
+    "hint": "Intelligence is becoming the strongest signal."
+  },
+  {
+    "id": "rule_jepa_vision",
+    "target": "jepa_vision",
+    "priority": 85,
+    "cost": { "spark": 300 },
+    "requiredStats": { "curiosity": 4, "intelligence": 4 },
+    "hint": "Prediction appears where Curiosity meets Intelligence."
+  },
+  {
+    "id": "rule_security",
+    "target": "security",
+    "priority": 80,
+    "cost": { "spark": 300 },
+    "requiredStats": { "stability": 6 },
+    "hint": "Stability is hardening into protection."
+  },
+  {
+    "id": "rule_data_analytics",
+    "target": "data_analytics",
+    "priority": 75,
+    "cost": { "spark": 300 },
+    "requiredStats": { "growth": 4, "curiosity": 4 },
+    "hint": "Growth and Curiosity are making patterns visible."
+  },
+  {
+    "id": "rule_cloud_infra",
+    "target": "cloud_infra",
+    "priority": 70,
+    "cost": { "spark": 300 },
+    "requiredStats": { "connection": 4, "stability": 4 },
+    "hint": "Connection stabilized into infrastructure."
+  },
+  {
+    "id": "rule_gaming_rl",
+    "target": "gaming_rl",
+    "priority": 65,
+    "cost": { "spark": 300 },
+    "requiredStats": { "curiosity": 5, "growth": 2 },
+    "hint": "Curiosity is testing playful variations."
+  },
+  {
+    "id": "rule_research",
+    "target": "research",
+    "priority": 60,
+    "cost": { "spark": 300 },
+    "requiredStats": { "curiosity": 7 },
+    "hint": "Curiosity is deep enough for discovery."
+  },
+  {
+    "id": "rule_education",
+    "target": "education",
+    "priority": 55,
+    "cost": { "spark": 300 },
+    "requiredStats": { "curiosity": 4, "stability": 4 },
+    "hint": "Stable curiosity is becoming knowledge."
+  },
+  {
+    "id": "rule_premium_pro",
+    "target": "premium_pro",
+    "priority": 50,
+    "cost": { "spark": 360 },
+    "requiredStats": {
+      "intelligence": 3,
+      "curiosity": 3,
+      "stability": 3,
+      "growth": 3,
+      "connection": 3
+    },
+    "hint": "Every stat is balanced enough for a polished form."
+  },
+  {
+    "id": "rule_sustainability",
+    "target": "sustainability",
+    "priority": 45,
+    "cost": { "spark": 300 },
+    "requiredStats": { "growth": 6 },
+    "hint": "Growth is settling into sustainable rhythm."
+  },
+  {
+    "id": "rule_api_integrations",
+    "target": "api_integrations",
+    "priority": 40,
+    "cost": { "spark": 300 },
+    "requiredStats": { "connection": 7 },
+    "hint": "Connection is strong enough to integrate outward."
+  },
+  {
+    "id": "rule_tools_utilities",
+    "target": "tools_utilities",
+    "priority": 35,
+    "cost": { "spark": 300 },
+    "requiredStats": { "stability": 4, "connection": 4 },
+    "hint": "Stable connections are becoming helpful tools."
+  }
+]
