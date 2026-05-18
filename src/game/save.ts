@@ -12,6 +12,9 @@ export function migrateSave(value: unknown, nowMs: number): GameState {
   const resources = isRecord(value.resources) ? value.resources : {};
   const stats = isRecord(value.stats) ? value.stats : {};
   const unlocked = isRecord(value.unlocked) ? value.unlocked : {};
+  const selectedYm = variantIds.includes(value.selectedYm as GameState['selectedYm'])
+    ? (value.selectedYm as GameState['selectedYm'])
+    : 'core';
 
   return {
     version: typeof value.version === 'string' ? value.version : fallback.version,
@@ -24,9 +27,8 @@ export function migrateSave(value: unknown, nowMs: number): GameState {
     unlocked: Object.fromEntries(
       variantIds.map((key) => [key, key === 'core' || unlocked[key] === true]),
     ) as GameState['unlocked'],
-    selectedYm: variantIds.includes(value.selectedYm as GameState['selectedYm'])
-      ? (value.selectedYm as GameState['selectedYm'])
-      : 'core',
+    selectedYm: unlocked[selectedYm] === true || selectedYm === 'core' ? selectedYm : 'core',
+    lastOfflineGain: {},
     lastSavedAt: typeof value.lastSavedAt === 'number' ? value.lastSavedAt : nowMs,
   };
 }

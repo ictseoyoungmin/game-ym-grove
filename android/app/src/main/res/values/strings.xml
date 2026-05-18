@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Ym Grove</string>
+    <string name="title_activity_main">Ym Grove</string>
+    <string name="package_name">com.ym.grove</string>
+    <string name="custom_url_scheme">com.ym.grove</string>
+</resources>

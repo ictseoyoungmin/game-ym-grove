@@ -1,4 +1,5 @@
 import type { ResourceKey } from '../types/game';
+import { formatNumber } from '../game/format';
 
 const labels: Record<ResourceKey, string> = {
   spark: 'Spark',
@@ -16,7 +17,7 @@ export function ResourceBar({ resources }: ResourceBarProps) {
       {Object.entries(resources).map(([key, value]) => (
         <div className="resource-item" key={key}>
           <dt>{labels[key as ResourceKey]}</dt>
-          <dd data-testid={`${key}-value`}>{Math.floor(value)}</dd>
+          <dd data-testid={`${key}-value`}>{formatNumber(value)}</dd>
         </div>
       ))}
     </dl>

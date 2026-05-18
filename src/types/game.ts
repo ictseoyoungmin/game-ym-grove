@@ -47,5 +47,6 @@ export interface GameState {
   stats: Record<StatKey, number>;
   unlocked: Record<YmVariantId, boolean>;
   selectedYm: YmVariantId;
+  lastOfflineGain: Partial<Record<ResourceKey, number>>;
   lastSavedAt: number;
 }

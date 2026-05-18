@@ -21,8 +21,43 @@ export function getEvolutionCandidates(state: GameState): EvolutionRule[] {
     .sort((left, right) => right.priority - left.priority);
 }
 
-export function unlockFirstCandidate(state: GameState): GameState {
-  const [candidate] = getEvolutionCandidates(state);
+export function getStatReadyRules(state: GameState): EvolutionRule[] {
+  return evolutionRules
+    .filter((rule) => !state.unlocked[rule.target])
+    .filter((rule) => meetsStatRequirements(state, rule))
+    .sort((left, right) => right.priority - left.priority);
+}
+
+export function getVisibleEvolutionRules(state: GameState): EvolutionRule[] {
+  const readyRules = getStatReadyRules(state);
+  if (readyRules.length > 0) return readyRules.slice(0, 3);
+
+  return evolutionRules
+    .filter((rule) => !state.unlocked[rule.target])
+    .map((rule) => ({
+      rule,
+      missing: Object.entries(rule.requiredStats).reduce(
+        (total, [stat, required]) =>
+          total + Math.max(0, (required ?? 0) - state.stats[stat as StatKey]),
+        0,
+      ),
+    }))
+    .sort((left, right) => left.missing - right.missing || right.rule.priority - left.rule.priority)
+    .slice(0, 3)
+    .map(({ rule }) => rule);
+}
+
+export function getMissingStats(state: GameState, rule: EvolutionRule): Partial<Record<StatKey, number>> {
+  const missing: Partial<Record<StatKey, number>> = {};
+  for (const [stat, required] of Object.entries(rule.requiredStats)) {
+    const gap = Math.max(0, (required ?? 0) - state.stats[stat as StatKey]);
+    if (gap > 0) missing[stat as StatKey] = gap;
+  }
+  return missing;
+}
+
+export function unlockEvolutionCandidate(state: GameState, ruleId: string): GameState {
+  const candidate = getEvolutionCandidates(state).find((rule) => rule.id === ruleId);
   if (!candidate) return state;
 
   const nextResources = { ...state.resources };
@@ -39,4 +74,9 @@ export function unlockFirstCandidate(state: GameState): GameState {
     },
     selectedYm: candidate.target,
   };
+}
+
+export function unlockFirstCandidate(state: GameState): GameState {
+  const [candidate] = getEvolutionCandidates(state);
+  return candidate ? unlockEvolutionCandidate(state, candidate.id) : state;
 }

@@ -14,6 +14,7 @@ describe('resources', () => {
     const next = applyOfflineGain(state, 10_000);
 
     expect(next.resources.spark).toBeCloseTo(2);
+    expect(next.lastOfflineGain.spark).toBeCloseTo(2);
     expect(next.lastSavedAt).toBe(10_000);
   });
 });

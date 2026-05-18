@@ -26,5 +26,6 @@ describe('save migration', () => {
     expect(state.resources.trust).toBe(0);
     expect(state.stats.curiosity).toBe(3);
     expect(state.unlocked.research).toBe(true);
+    expect(state.lastOfflineGain).toEqual({});
   });
 });

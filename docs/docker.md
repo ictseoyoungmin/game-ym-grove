@@ -25,4 +25,5 @@ For one-off package commands:
 ```bash
 docker compose run --rm app pnpm test
 docker compose run --rm app pnpm build
+docker compose run --rm app pnpm android:sync
 ```
