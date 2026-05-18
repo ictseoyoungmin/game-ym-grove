@@ -16,6 +16,19 @@ for (const variant of variants) {
     console.error(`Non-SVG icon in v0.1: ${variant.id}`);
     failed = true;
   }
+
+  if (fs.existsSync(fullPath)) {
+    const svg = fs.readFileSync(fullPath, 'utf8');
+    if (svg.includes('<image') || svg.includes('href=')) {
+      console.error(`SVG must be vectorized, not PNG-linked: ${variant.id}`);
+      failed = true;
+    }
+
+    if (!svg.includes('<path')) {
+      console.error(`SVG has no vector path data: ${variant.id}`);
+      failed = true;
+    }
+  }
 }
 
 if (failed) process.exit(1);
