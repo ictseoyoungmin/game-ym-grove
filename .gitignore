@@ -7,5 +7,7 @@ test-results/
 .env
 .env.local
 *.tsbuildinfo
+android/.gradle/
+android/**/build/
 ios/
 .DS_Store

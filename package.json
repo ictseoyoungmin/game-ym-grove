@@ -17,6 +17,7 @@
     "cap:init": "cap init \"Ym Grove\" \"com.ym.grove\" --web-dir dist",
     "android:add": "cap add android",
     "android:sync": "pnpm build && cap sync android",
+    "android:build": "pnpm android:sync && cd android && ./gradlew assembleDebug",
     "android:open": "cap open android",
     "assets:check": "node scripts/check-assets.mjs",
     "balance:check": "node scripts/check-balance.mjs",

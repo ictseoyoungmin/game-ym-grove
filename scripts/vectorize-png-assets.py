@@ -29,6 +29,23 @@ ASSET_MAP = {
     "tools-utilities.svg": "api.png",
 }
 
+OVERLAYS = {
+    "jepa-vision.svg": """
+  <path fill="none" stroke="#6fe7f8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M57 61c19-17 59-17 78 0-19 18-59 18-78 0Z"/>
+  <circle cx="96" cy="61" r="8" fill="#6fe7f8"/>
+""",
+    "research.svg": """
+  <circle cx="70" cy="62" r="19" fill="none" stroke="#b089ff" stroke-width="5"/>
+  <path fill="none" stroke="#b089ff" stroke-width="6" stroke-linecap="round" d="M84 76l22 22"/>
+""",
+    "sustainability.svg": """
+  <path fill="none" stroke="#69e7b6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M107 51c22 5 35 22 34 47-24-1-40-15-44-37M96 98c-17-4-28-15-29-33 18 1 31 9 38 24"/>
+""",
+    "tools-utilities.svg": """
+  <path fill="none" stroke="#f5d27a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M60 61l19 19-25 25-19-19 25-25Zm34 16l37 37M113 96l-18 18"/>
+""",
+}
+
 
 def paeth(a, b, c):
     p = a + b - c
@@ -156,7 +173,7 @@ def color_sort_key(rgb):
     return (r + g + b, r, g, b)
 
 
-def build_svg(sampled, source_name):
+def build_svg(sampled, source_name, svg_name):
     paths = defaultdict(list)
 
     for y, row in enumerate(sampled):
@@ -176,6 +193,10 @@ def build_svg(sampled, source_name):
     for color in sorted(paths, key=color_sort_key):
         lines.append(f'  <path fill="{rgb_to_hex(color)}" d="{"".join(paths[color])}"/>')
 
+    overlay = OVERLAYS.get(svg_name)
+    if overlay:
+        lines.append(f"  <g>{overlay.rstrip()}\n  </g>")
+
     lines.append("</svg>")
     return "\n".join(lines) + "\n"
 
@@ -187,7 +208,7 @@ def main():
         svg_path = YM_ROOT / svg_name
         width, height, channels, rows = read_png(png_path)
         sampled = sample_image(width, height, channels, rows)
-        svg_path.write_text(build_svg(sampled, png_name), encoding="utf-8")
+        svg_path.write_text(build_svg(sampled, png_name, svg_name), encoding="utf-8")
         print(f"generated {svg_path.relative_to(ROOT)} from {png_path.relative_to(ROOT)}")
 
 

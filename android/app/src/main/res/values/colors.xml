@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ym_navy">#042A6B</color>
+    <color name="ym_navy_dark">#021B46</color>
+    <color name="ym_cyan">#6FE7F8</color>
+    <color name="ym_green">#69E7B6</color>
+    <color name="ym_white">#FFFFFF</color>
+</resources>

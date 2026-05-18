@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ResourceBar } from '../components/ResourceBar';
 import { YmCharacter } from '../components/YmCharacter';
 import { formatNumber, formatRate } from '../game/format';
@@ -10,6 +10,7 @@ interface HomeProps {
 }
 
 export function Home({ onOpenLab }: HomeProps) {
+  const [tapBurst, setTapBurst] = useState(0);
   const state = useGameStore();
   const { lastOfflineGain, resources, selectedYm } = state;
   const tapYm = useGameStore((state) => state.tapYm);
@@ -26,6 +27,11 @@ export function Home({ onOpenLab }: HomeProps) {
   const lastGainTotal =
     (lastOfflineGain.spark ?? 0) + (lastOfflineGain.insight ?? 0) + (lastOfflineGain.trust ?? 0);
 
+  function handleTapYm() {
+    tapYm();
+    setTapBurst((value) => value + 1);
+  }
+
   return (
     <div className="home-layout">
       <ResourceBar resources={resources} />
@@ -40,9 +46,16 @@ export function Home({ onOpenLab }: HomeProps) {
           </span>
         </div>
       ) : null}
-      <YmCharacter id={selectedYm} />
+      <div className="tap-stage">
+        <YmCharacter id={selectedYm} />
+        {tapBurst > 0 ? (
+          <span className="tap-pop" key={tapBurst}>
+            +1
+          </span>
+        ) : null}
+      </div>
       <div className="action-row">
-        <button className="primary-action" onClick={tapYm} type="button">
+        <button className="primary-action" onClick={handleTapYm} type="button">
           Tap Ym
         </button>
         <button onClick={() => claimOfflineGain()} type="button">

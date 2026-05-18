@@ -36,8 +36,18 @@ services:
       - e2e-pnpm-store:/root/.local/share/pnpm/store
       - e2e-node-modules:/app/node_modules
 
+  android-build:
+    image: ghcr.io/cirruslabs/android-sdk:35
+    working_dir: /workspace/android
+    command: ./gradlew assembleDebug
+    volumes:
+      - .:/workspace
+      - node-modules:/workspace/node_modules
+      - gradle-cache:/root/.gradle
+
 volumes:
   pnpm-store:
   node-modules:
   e2e-pnpm-store:
   e2e-node-modules:
+  gradle-cache:

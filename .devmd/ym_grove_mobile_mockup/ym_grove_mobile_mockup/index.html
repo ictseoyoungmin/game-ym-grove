@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ym Grove Mobile Mockup</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <section class="phone-shell">
+      <div class="phone">
+        <div class="app">
+          <header class="topbar">
+            <div class="brand">
+              <img class="brand-icon" src="assets/core-brand.svg" alt="Ym Grove" />
+              <div><b>Ym Grove</b><span>Tiny Logo Creatures</span></div>
+            </div>
+            <button class="round-btn" id="auraBtn" aria-label="aura">✦</button>
+          </header>
+
+          <section class="resource-row">
+            <div class="resource"><small><i class="spark-dot"></i>Spark</small><strong id="spark">1,240</strong></div>
+            <div class="resource"><small><i class="insight-dot"></i>Insight</small><strong id="insight">32</strong></div>
+            <div class="resource"><small><i class="trust-dot"></i>Trust</small><strong id="trust">14</strong></div>
+          </section>
+
+          <section class="screens">
+            <article class="screen active" data-screen="grove">
+              <div class="hero-card">
+                <div class="creature-zone" id="creatureZone">
+                  <span class="glow glow-a"></span>
+                  <span class="glow glow-b"></span>
+                  <button class="creature" id="creatureBtn" aria-label="tap Ym"><img id="currentIcon" src="assets/core-brand.svg" alt="Core Ym" /></button>
+                </div>
+                <div class="hero-info">
+                  <div><h1 id="currentName">Core Ym</h1><p>Tap to collect Spark · idle +0.1/sec</p></div>
+                  <span class="level">Lv. 03</span>
+                </div>
+                <div class="cta-row">
+                  <button class="primary" id="growBtn">Grow +1</button>
+                  <button class="secondary" id="hintBtn">Hint</button>
+                </div>
+              </div>
+              <div class="section-head"><b>Growth State</b><span>balanced</span></div>
+              <div class="stat-list" id="statList"></div>
+            </article>
+
+            <article class="screen" data-screen="lab">
+              <div class="glass-card">
+                <h2>Lab Feed</h2>
+                <p>먹이와 환경을 선택하면 성장축이 바뀌고, 조건을 만족하면 프로젝트 variant로 진화합니다.</p>
+                <div class="feed-grid">
+                  <button class="feed" data-stat="Intelligence"><b>Neural Seed</b><span>Intelligence +8</span></button>
+                  <button class="feed" data-stat="Curiosity"><b>Question Dew</b><span>Curiosity +8</span></button>
+                  <button class="feed" data-stat="Stability"><b>Shield Bark</b><span>Stability +8</span></button>
+                  <button class="feed" data-stat="Connection"><b>Signal Moss</b><span>Connection +8</span></button>
+                </div>
+              </div>
+              <div class="evolve-card">
+                <h2>Ready to Evolve?</h2>
+                <p>현재 상태에서는 AI / Agents, Data / Analytics, Security 계열로 진화할 가능성이 있습니다.</p>
+                <button id="evolveBtn">Evolve Preview</button>
+              </div>
+              <div class="section-head"><b>Evolution Bias</b><span>live</span></div>
+              <div class="stat-list" id="labStats"></div>
+            </article>
+
+            <article class="screen" data-screen="dex">
+              <div class="section-head"><b>Ym Collection</b><span id="unlockCount">6 / 14</span></div>
+              <div class="collection" id="collection"></div>
+            </article>
+
+            <article class="screen" data-screen="work">
+              <div class="glass-card compact">
+                <h2>Workspace</h2>
+                <p>해금된 Ym은 숲에 자동 배치되어 Spark, Insight, Trust 생산을 보조합니다.</p>
+              </div>
+              <div class="slots" id="slots"></div>
+            </article>
+          </section>
+
+          <nav class="bottom-nav">
+            <button class="nav active" data-target="grove">⌂<span>Grove</span></button>
+            <button class="nav" data-target="lab">⚗<span>Lab</span></button>
+            <button class="nav" data-target="dex">◇<span>Dex</span></button>
+            <button class="nav" data-target="work">☷<span>Work</span></button>
+          </nav>
+          <div class="toast" id="toast">Spark +1</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="side-copy">
+      <p class="eyebrow">Ym Grove · Mobile Mockup</p>
+      <h1>로고가 캐릭터가 되는 작은 방치형 수집 게임</h1>
+      <p>D-4 기반 YM 마크를 메인 캐릭터로 고정하고, 프로젝트별 파생 로고를 게임 내 Ym 생명체 도감으로 확장한 스마트폰 레이아웃 목업입니다.</p>
+      <div class="chips"><span>SVG assets</span><span>Idle loop</span><span>Collection Dex</span><span>Animated UI</span></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

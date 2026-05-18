@@ -49,6 +49,9 @@ export function Lab() {
                 <small>{formatNumber(getGrowthCost(state, stat))} Spark</small>
               </span>
               <strong data-testid={`stat-${stat}`}>{state.stats[stat]}</strong>
+              <span className="stat-meter" aria-hidden="true">
+                <span style={{ width: `${Math.min(100, state.stats[stat] * 14)}%` }} />
+              </span>
             </button>
           ))}
         </div>
@@ -75,7 +78,12 @@ export function Lab() {
               <article className="evolution-card" key={rule.id}>
                 <img alt="" src={`/${target.icon}`} />
                 <div>
-                  <h3>{target.name}</h3>
+                  <div className="card-title-row">
+                    <h3>{target.name}</h3>
+                    <span className={ready && affordable ? 'status-pill is-ready' : 'status-pill'}>
+                      {ready && affordable ? 'Ready' : ready ? 'Need Spark' : 'Training'}
+                    </span>
+                  </div>
                   <p>{rule.hint}</p>
                   {Object.keys(missing).length > 0 ? (
                     <p className="hint-line">
