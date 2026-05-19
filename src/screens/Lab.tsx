@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { balance } from '../data/balance';
 import { variantById } from '../data/variants';
 import {
@@ -31,13 +30,6 @@ export function Lab() {
   const visibleRules = getVisibleEvolutionRules(state);
   const lastUnlocked = state.lastUnlockedYm ? variantById[state.lastUnlockedYm] : null;
 
-  useEffect(() => {
-    if (!state.lastUnlockedYm) return undefined;
-
-    const timer = window.setTimeout(() => clearEvolutionEvent(), 3200);
-    return () => window.clearTimeout(timer);
-  }, [clearEvolutionEvent, state.lastUnlockedYm]);
-
   function formatCost(cost: Partial<Record<ResourceKey, number>>) {
     return Object.entries(cost)
       .map(([resource, value]) => `${formatNumber(value ?? 0)} ${resource}`)
@@ -46,11 +38,15 @@ export function Lab() {
 
   return (
     <div className="panel-stack">
-      <section className="tool-panel">
-        <h2>Growth Lab</h2>
+      <section className="tool-panel lab-feed-panel">
+        <div>
+          <h2>Growth Lab</h2>
+          <p>Feed one growth direction at a time, then evolve when the grove lines up.</p>
+        </div>
         <div className="stat-list">
           {statKeys.map((stat) => (
             <button
+              className="feed-button"
               disabled={state.resources.spark < getGrowthCost(state, stat)}
               key={stat}
               onClick={() => growStat(stat)}
@@ -68,7 +64,7 @@ export function Lab() {
           ))}
         </div>
       </section>
-      <section className="tool-panel">
+      <section className="tool-panel evolve-panel">
         <div className="panel-heading">
           <h2>Evolution</h2>
           <button
@@ -109,7 +105,7 @@ export function Lab() {
                       {ready && affordable ? 'Ready' : ready ? 'Need Spark' : 'Training'}
                     </span>
                   </div>
-                  <p>{rule.hint}</p>
+                  <p>{revealed ? rule.hint : `Direction: ${target.tags.join(' + ')}`}</p>
                   {revealed ? (
                     <p className="hint-line">
                       {Object.keys(missing).length > 0

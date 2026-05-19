@@ -1,5 +1,6 @@
 export const balance = {
   tapSpark: 1,
+  // v0.1 uses Core Ym's variant effect as the starting passive production source.
   baseSparkPerSecond: 0,
   growCostSpark: 20,
   evolutionBaseCostSpark: 300,

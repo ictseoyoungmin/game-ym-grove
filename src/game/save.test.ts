@@ -34,12 +34,26 @@ describe('save migration', () => {
   it('keeps revealed hint state across migrations', () => {
     const state = migrateSave(
       {
-        revealedHints: { ai_agents: true },
+        revealedHints: { ai_agents: true, research: 'true' },
+        lastUnlockedYm: 'research',
       },
       123,
     );
 
     expect(state.revealedHints.ai_agents).toBe(true);
     expect(state.revealedHints.research).toBe(false);
+    expect(state.lastUnlockedYm).toBeNull();
+  });
+
+  it('falls back to Core when a selected Ym is still locked', () => {
+    const state = migrateSave(
+      {
+        unlocked: { core: true, ai_agents: false },
+        selectedYm: 'ai_agents',
+      },
+      123,
+    );
+
+    expect(state.selectedYm).toBe('core');
   });
 });

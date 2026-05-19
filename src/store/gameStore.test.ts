@@ -13,7 +13,9 @@ describe('game store actions', () => {
       ...createInitialState(0),
       resources: { spark: 20, insight: 3, trust: 2 },
       unlocked: { ...createInitialState(0).unlocked, ai_agents: true },
+      revealedHints: { ai_agents: true },
       selectedYm: 'ai_agents',
+      lastUnlockedYm: 'ai_agents',
     });
 
     useGameStore.getState().resetGame(500);
@@ -22,6 +24,8 @@ describe('game store actions', () => {
     expect(state.resources.spark).toBe(0);
     expect(state.unlocked.core).toBe(true);
     expect(state.unlocked.ai_agents).toBe(false);
+    expect(state.revealedHints).toEqual({});
+    expect(state.lastUnlockedYm).toBeNull();
     expect(state.selectedYm).toBe('core');
     expect(state.lastSavedAt).toBe(500);
   });
@@ -96,5 +100,43 @@ describe('game store actions', () => {
 
     expect(useGameStore.getState().revealedHints.ai_agents).toBe(true);
     expect(useGameStore.getState().resources.insight).toBe(0);
+  });
+
+  it('does not spend Insight twice for an already revealed hint', () => {
+    useGameStore.setState({
+      ...createInitialState(0),
+      resources: { spark: 0, insight: 10, trust: 0 },
+      revealedHints: { ai_agents: true },
+    });
+
+    useGameStore.getState().revealHint('ai_agents');
+
+    expect(useGameStore.getState().resources.insight).toBe(10);
+  });
+
+  it('does not convert Insight to Trust when Insight is too low', () => {
+    useGameStore.setState({
+      ...createInitialState(0),
+      resources: { spark: 0, insight: 4, trust: 0 },
+    });
+
+    useGameStore.getState().spendInsightForTrust();
+
+    expect(useGameStore.getState().resources).toEqual({ spark: 0, insight: 4, trust: 0 });
+  });
+
+  it('clears only the transient evolution event', () => {
+    useGameStore.setState({
+      ...createInitialState(0),
+      resources: { spark: 11, insight: 0, trust: 0 },
+      selectedYm: 'ai_agents',
+      lastUnlockedYm: 'ai_agents',
+    });
+
+    useGameStore.getState().clearEvolutionEvent();
+
+    expect(useGameStore.getState().lastUnlockedYm).toBeNull();
+    expect(useGameStore.getState().resources.spark).toBe(11);
+    expect(useGameStore.getState().selectedYm).toBe('ai_agents');
   });
 });

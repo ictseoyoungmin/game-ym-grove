@@ -42,7 +42,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
         </div>
         <div>
           <dt>Network</dt>
-          <dd>No login, no server, no ads, no personal data upload.</dd>
+          <dd>No login, no server</dd>
         </div>
       </dl>
       <button className={confirmReset ? 'danger-action' : ''} onClick={handleReset} type="button">

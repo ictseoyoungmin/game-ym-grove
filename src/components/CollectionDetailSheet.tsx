@@ -118,7 +118,11 @@ export function CollectionDetailSheet({
           </>
         ) : (
           <>
-            <p>{rule?.hint ?? 'Train more in the Lab to reveal this Ym.'}</p>
+            <p>
+              {revealed
+                ? (rule?.hint ?? 'Train more in the Lab to reveal this Ym.')
+                : `Direction: ${variant.tags.join(' + ')}`}
+            </p>
             {rule && revealed ? (
               <dl className="detail-list">
                 <div>

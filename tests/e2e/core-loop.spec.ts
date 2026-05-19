@@ -105,6 +105,7 @@ test('evolve-first-variant registers and selects AI Agents Ym', async ({ page })
 
   await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Grove' }).click();
   await expect(page.getByTestId('selected-ym')).toContainText('AI / Agents Ym');
+  await expect.poll(async () => page.locator('.is-celebrating').count(), { timeout: 5000 }).toBe(0);
 });
 
 test('persist-reload keeps resources, unlocked variants, and selected Ym', async ({ page }) => {
@@ -151,6 +152,7 @@ test('settings reset returns the save to a new core-only game', async ({ page })
   await page.goto('/');
 
   await page.getByRole('button', { name: 'Settings' }).click();
+  await expect(page.getByRole('dialog', { name: 'Settings' })).toBeVisible();
   await page.getByRole('button', { name: 'Reset Game' }).click();
   await page.getByRole('button', { name: 'Confirm Reset' }).click();
 

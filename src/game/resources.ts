@@ -13,7 +13,7 @@ export function getProductionPerSecond(state: GameState): Record<ResourceKey, nu
 
       return totals;
     },
-    { spark: balance.baseSparkPerSecond, insight: 0, trust: 0 },
+    { spark: 0, insight: 0, trust: 0 },
   );
 
   if (state.unlocked.sustainability) {

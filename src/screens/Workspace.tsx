@@ -1,4 +1,3 @@
-import { balance } from '../data/balance';
 import { variantById, variants } from '../data/variants';
 import { formatRate } from '../game/format';
 import { getProductionPerSecond } from '../game/resources';
@@ -61,8 +60,8 @@ export function Workspace() {
       </section>
       <section className="tool-panel breakdown-grid">
         <div>
-          <span>Base/Core</span>
-          <strong>{formatRate(balance.baseSparkPerSecond + coreSpark)} Spark/sec</strong>
+          <span>Core</span>
+          <strong>{formatRate(coreSpark)} Spark/sec</strong>
         </div>
         <div>
           <span>Variant Spark</span>
@@ -85,6 +84,7 @@ export function Workspace() {
               <h3>{variant.name}</h3>
               <p>{formatEffectEntries(variant.effect)}</p>
             </div>
+            <em>{variant.tags[0]}</em>
           </article>
         ))}
       </section>

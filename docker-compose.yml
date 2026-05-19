@@ -37,9 +37,13 @@ services:
       - e2e-node-modules:/app/node_modules
 
   android-build:
-    image: ghcr.io/cirruslabs/android-sdk:35
-    working_dir: /workspace/android
-    command: ./gradlew assembleDebug
+    build:
+      context: .
+      target: android-build
+    working_dir: /workspace
+    command: >
+      sh -lc "pnpm install --frozen-lockfile &&
+      pnpm android:build"
     volumes:
       - .:/workspace
       - node-modules:/workspace/node_modules
