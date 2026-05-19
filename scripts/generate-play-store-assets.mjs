@@ -1,7 +1,7 @@
 /* global window */
 
 import { chromium } from '@playwright/test';
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -134,6 +134,22 @@ for (const [density, iconSize, foregroundSize] of launcherSizes) {
     padding: Math.round(foregroundSize * 0.14),
   });
 }
+
+const adaptiveIconXml = `<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background"/>
+    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+</adaptive-icon>
+`;
+
+await writeFile(
+  path.join(rootDir, 'android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml'),
+  adaptiveIconXml,
+);
+await writeFile(
+  path.join(rootDir, 'android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml'),
+  adaptiveIconXml,
+);
 
 await captureScreen(browser, '01-grove.png', async () => {});
 await captureScreen(browser, '02-lab.png', async (page) => {
