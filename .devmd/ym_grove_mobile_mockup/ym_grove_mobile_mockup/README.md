@@ -14,3 +14,7 @@
 - 터치 Spark 파티클
 - idle floating / glow / card rise / progress shimmer 애니메이션
 - 로컬 정적 파일 구조
+
+## 주의
+
+목업의 assets의 svg는 임시 형태이며 실제 svg로 대체되어야 합니다.

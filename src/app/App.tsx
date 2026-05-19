@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { SettingsPanel } from '../components/SettingsPanel';
 import { Collection } from '../screens/Collection';
 import { Home } from '../screens/Home';
 import { Lab } from '../screens/Lab';
@@ -15,6 +16,7 @@ const tabs: Array<{ key: TabKey; label: string }> = [
 
 export function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('home');
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const screen = useMemo(() => {
     switch (activeTab) {
@@ -37,8 +39,12 @@ export function App() {
           <p className="eyebrow">Tiny Logo Creatures</p>
           <h1>Ym Grove</h1>
         </div>
+        <button onClick={() => setSettingsOpen(true)} type="button">
+          Settings
+        </button>
       </header>
       <section className="screen">{screen}</section>
+      {settingsOpen ? <SettingsPanel onClose={() => setSettingsOpen(false)} /> : null}
       <nav className="tabbar" aria-label="Primary">
         {tabs.map((tab) => (
           <button

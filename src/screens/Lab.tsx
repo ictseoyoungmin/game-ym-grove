@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { balance } from '../data/balance';
 import { variantById } from '../data/variants';
 import {
   canAffordRule,
@@ -23,8 +25,18 @@ export function Lab() {
   const state = useGameStore();
   const growStat = useGameStore((store) => store.growStat);
   const evolveByRule = useGameStore((store) => store.evolveByRule);
+  const revealHint = useGameStore((store) => store.revealHint);
+  const clearEvolutionEvent = useGameStore((store) => store.clearEvolutionEvent);
   const spendInsightForTrust = useGameStore((store) => store.spendInsightForTrust);
   const visibleRules = getVisibleEvolutionRules(state);
+  const lastUnlocked = state.lastUnlockedYm ? variantById[state.lastUnlockedYm] : null;
+
+  useEffect(() => {
+    if (!state.lastUnlockedYm) return undefined;
+
+    const timer = window.setTimeout(() => clearEvolutionEvent(), 3200);
+    return () => window.clearTimeout(timer);
+  }, [clearEvolutionEvent, state.lastUnlockedYm]);
 
   function formatCost(cost: Partial<Record<ResourceKey, number>>) {
     return Object.entries(cost)
@@ -64,15 +76,28 @@ export function Lab() {
             onClick={spendInsightForTrust}
             type="button"
           >
-            Stabilize
+            Convert Insight
           </button>
         </div>
+        {lastUnlocked ? (
+          <div className="evolution-success" data-testid="evolution-success">
+            <img alt="" src={`/${lastUnlocked.icon}`} />
+            <div>
+              <strong>New Ym Registered</strong>
+              <span>{lastUnlocked.name} joined the grove.</span>
+            </div>
+            <button onClick={clearEvolutionEvent} type="button">
+              Close
+            </button>
+          </div>
+        ) : null}
         <div className="evolution-list">
           {visibleRules.map((rule) => {
             const target = variantById[rule.target];
             const affordable = canAffordRule(state, rule);
             const ready = meetsStatRequirements(state, rule);
             const missing = getMissingStats(state, rule);
+            const revealed = state.revealedHints[rule.target] === true;
 
             return (
               <article className="evolution-card" key={rule.id}>
@@ -85,17 +110,32 @@ export function Lab() {
                     </span>
                   </div>
                   <p>{rule.hint}</p>
-                  {Object.keys(missing).length > 0 ? (
+                  {revealed ? (
                     <p className="hint-line">
-                      Needs{' '}
-                      {Object.entries(missing)
-                        .map(([stat, value]) => `${value} ${stat}`)
-                        .join(', ')}
+                      {Object.keys(missing).length > 0
+                        ? `Needs ${Object.entries(missing)
+                            .map(([stat, value]) => `${value} ${stat}`)
+                            .join(', ')}`
+                        : `Cost ${formatCost(rule.cost)}`}
                     </p>
+                  ) : ready ? (
+                    <p className="hint-line">Stats aligned. Cost {formatCost(rule.cost)}</p>
                   ) : (
-                    <p className="hint-line">Cost {formatCost(rule.cost)}</p>
+                    <p className="hint-line">
+                      Direction: {target.tags.join(' + ')}. Reveal exact stats with{' '}
+                      {balance.hintCostInsight} Insight.
+                    </p>
                   )}
                 </div>
+                {!revealed ? (
+                  <button
+                    disabled={state.resources.insight < balance.hintCostInsight}
+                    onClick={() => revealHint(rule.target)}
+                    type="button"
+                  >
+                    Reveal
+                  </button>
+                ) : null}
                 <button
                   className="primary-action"
                   disabled={!ready || !affordable}

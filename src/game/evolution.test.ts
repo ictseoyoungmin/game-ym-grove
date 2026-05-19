@@ -5,9 +5,9 @@ import { createInitialState } from './state';
 describe('evolution', () => {
   it('selects a candidate when stats and costs are satisfied', () => {
     const state = createInitialState(0);
-    state.resources.spark = 300;
-    state.stats.intelligence = 4;
-    state.stats.connection = 4;
+    state.resources.spark = 180;
+    state.stats.intelligence = 3;
+    state.stats.connection = 3;
 
     const [candidate] = getEvolutionCandidates(state);
 
@@ -16,13 +16,14 @@ describe('evolution', () => {
 
   it('unlocks the highest priority candidate', () => {
     const state = createInitialState(0);
-    state.resources.spark = 300;
-    state.stats.intelligence = 4;
-    state.stats.connection = 4;
+    state.resources.spark = 180;
+    state.stats.intelligence = 3;
+    state.stats.connection = 3;
 
     const next = unlockFirstCandidate(state);
 
     expect(next.unlocked.ai_agents).toBe(true);
+    expect(next.lastUnlockedYm).toBe('ai_agents');
     expect(next.resources.spark).toBe(0);
   });
 });

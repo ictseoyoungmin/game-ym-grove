@@ -4,17 +4,16 @@ interface CollectionCardProps {
   selected?: boolean;
   unlocked: boolean;
   variant: YmVariant;
-  onSelect: () => void;
+  onOpen: () => void;
 }
 
-export function CollectionCard({ onSelect, selected = false, unlocked, variant }: CollectionCardProps) {
+export function CollectionCard({ onOpen, selected = false, unlocked, variant }: CollectionCardProps) {
   return (
     <button
       aria-pressed={selected}
       className={unlocked ? 'collection-card is-unlocked' : 'collection-card'}
       data-testid={`collection-card-${variant.id.replaceAll('_', '-')}`}
-      disabled={!unlocked}
-      onClick={onSelect}
+      onClick={onOpen}
       type="button"
     >
       <img alt="" src={`/${variant.icon}`} />

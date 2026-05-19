@@ -3,8 +3,8 @@
     "id": "rule_ai_agents",
     "target": "ai_agents",
     "priority": 100,
-    "cost": { "spark": 300 },
-    "requiredStats": { "intelligence": 4, "connection": 4 },
+    "cost": { "spark": 180 },
+    "requiredStats": { "intelligence": 3, "connection": 3 },
     "hint": "Intelligence and Connection are both pulling upward."
   },
   {

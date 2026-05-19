@@ -38,7 +38,9 @@ export function createInitialState(nowMs: number): GameState {
       connection: 0,
     },
     unlocked: Object.fromEntries(variantIds.map((id) => [id, id === 'core'])) as GameState['unlocked'],
+    revealedHints: {},
     selectedYm: 'core',
+    lastUnlockedYm: null,
     lastOfflineGain: {},
     lastSavedAt: nowMs,
   };

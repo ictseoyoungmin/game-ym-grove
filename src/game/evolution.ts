@@ -1,5 +1,5 @@
 import { evolutionRules } from '../data/evolutionRules';
-import type { EvolutionRule, GameState, ResourceKey, StatKey } from '../types/game';
+import type { EvolutionRule, GameState, ResourceKey, StatKey, YmVariantId } from '../types/game';
 
 export function canAffordRule(state: GameState, rule: EvolutionRule): boolean {
   return Object.entries(rule.cost).every(
@@ -56,6 +56,12 @@ export function getMissingStats(state: GameState, rule: EvolutionRule): Partial<
   return missing;
 }
 
+export function getEvolutionRuleForTarget(
+  target: Exclude<YmVariantId, 'core'>,
+): EvolutionRule | undefined {
+  return evolutionRules.find((rule) => rule.target === target);
+}
+
 export function unlockEvolutionCandidate(state: GameState, ruleId: string): GameState {
   const candidate = getEvolutionCandidates(state).find((rule) => rule.id === ruleId);
   if (!candidate) return state;
@@ -72,6 +78,7 @@ export function unlockEvolutionCandidate(state: GameState, ruleId: string): Game
       ...state.unlocked,
       [candidate.target]: true,
     },
+    lastUnlockedYm: candidate.target,
     selectedYm: candidate.target,
   };
 }

@@ -26,6 +26,20 @@ describe('save migration', () => {
     expect(state.resources.trust).toBe(0);
     expect(state.stats.curiosity).toBe(3);
     expect(state.unlocked.research).toBe(true);
+    expect(state.revealedHints.ai_agents).toBe(false);
+    expect(state.lastUnlockedYm).toBeNull();
     expect(state.lastOfflineGain).toEqual({});
+  });
+
+  it('keeps revealed hint state across migrations', () => {
+    const state = migrateSave(
+      {
+        revealedHints: { ai_agents: true },
+      },
+      123,
+    );
+
+    expect(state.revealedHints.ai_agents).toBe(true);
+    expect(state.revealedHints.research).toBe(false);
   });
 });

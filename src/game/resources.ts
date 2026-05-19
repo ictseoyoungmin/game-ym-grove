@@ -66,3 +66,19 @@ export function applyOfflineGain(state: GameState, nowMs: number): GameState {
     lastSavedAt: nowMs,
   };
 }
+
+export function applyPassiveTick(state: GameState, nowMs: number): GameState {
+  const elapsedMs = Math.max(0, Math.min(nowMs - state.lastSavedAt, balance.offlineCapMs));
+  const elapsedSeconds = elapsedMs / 1000;
+  const production = getProductionPerSecond(state);
+
+  return {
+    ...state,
+    resources: {
+      spark: state.resources.spark + production.spark * elapsedSeconds,
+      insight: state.resources.insight + production.insight * elapsedSeconds,
+      trust: state.resources.trust + production.trust * elapsedSeconds,
+    },
+    lastSavedAt: nowMs,
+  };
+}

@@ -12,17 +12,18 @@ interface HomeProps {
 export function Home({ onOpenLab }: HomeProps) {
   const [tapBurst, setTapBurst] = useState(0);
   const state = useGameStore();
-  const { lastOfflineGain, resources, selectedYm } = state;
+  const { lastOfflineGain, lastUnlockedYm, resources, selectedYm } = state;
   const tapYm = useGameStore((state) => state.tapYm);
   const claimOfflineGain = useGameStore((state) => state.claimOfflineGain);
+  const tickProduction = useGameStore((state) => state.tickProduction);
   const production = getProductionPerSecond(state);
   const unlockedCount = Object.values(state.unlocked).filter(Boolean).length;
 
   useEffect(() => {
     claimOfflineGain();
-    const timer = window.setInterval(() => claimOfflineGain(), 1000);
+    const timer = window.setInterval(() => tickProduction(), 1000);
     return () => window.clearInterval(timer);
-  }, [claimOfflineGain]);
+  }, [claimOfflineGain, tickProduction]);
 
   const lastGainTotal =
     (lastOfflineGain.spark ?? 0) + (lastOfflineGain.insight ?? 0) + (lastOfflineGain.trust ?? 0);
@@ -35,7 +36,7 @@ export function Home({ onOpenLab }: HomeProps) {
   return (
     <div className="home-layout">
       <ResourceBar resources={resources} />
-      {lastGainTotal > 0 ? (
+      {lastGainTotal >= 1 ? (
         <div className="offline-banner" data-testid="offline-gain">
           <strong>Idle gain claimed</strong>
           <span>
@@ -47,7 +48,7 @@ export function Home({ onOpenLab }: HomeProps) {
         </div>
       ) : null}
       <div className="tap-stage">
-        <YmCharacter id={selectedYm} />
+        <YmCharacter celebrating={lastUnlockedYm === selectedYm} id={selectedYm} />
         {tapBurst > 0 ? (
           <span className="tap-pop" key={tapBurst}>
             +1
